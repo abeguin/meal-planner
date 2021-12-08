@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "counter",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "A simple counter",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Arnaud Béguin <beguin.arnaud@gmail.com>",
   "dependencies": {
     "gatsby": "^4.3.0",
     "gatsby-plugin-gatsby-cloud": "^4.3.0",
@@ -14,12 +14,16 @@
     "gatsby-plugin-sharp": "^4.3.0",
     "gatsby-source-filesystem": "^4.3.0",
     "gatsby-transformer-sharp": "^4.3.0",
-    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "tailwindcss": "^2.2.19",
+    "twin.macro": "^2.8.2",
+    "@emotion/react": "^11.7.0",
+    "@emotion/styled": "^11.6.0"
   },
   "devDependencies": {
+    "gatsby-plugin-typescript": "^4.3.0",
     "prettier": "^2.4.1"
   },
   "keywords": [

@@ -36,13 +36,13 @@ export async function getServerData() {
       throw new Error(`Response failed`)
     }
     return {
-      props: await res.json(),
+      props: await res.json()
     }
   } catch (error) {
     return {
       status: 500,
       headers: {},
-      props: {},
+      props: {}
     }
   }
 }
