@@ -1,0 +1,24 @@
+{
+  "include": [
+    "./src/**/*",
+    "./__tests__/**/*"
+  ],
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsxImportSource": "@emotion/react"
+  }
+}

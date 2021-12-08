@@ -1,23 +1,20 @@
 import * as React from "react"
-import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import tw from "twin.macro"
+
+import Home from "../assets/home.inline.svg"
+import Plan from "../plan/Plan"
+
+const CounterContainer = tw.div`flex flex-col h-full w-full items-center justify-center`
+const Line = tw.div`flex items-center`
+const IconContainer = tw.div`w-16 lg:w-36`
 
 const IndexPage = () => (
   <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={[ "auto", "webp", "avif" ]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
+    <Seo title={"Home"} />
+    <Plan />
   </Layout>
 )
 
