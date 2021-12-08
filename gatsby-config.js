@@ -3,7 +3,7 @@ module.exports = {
     title: `Count down`,
     description: `Count down for the house !`,
     author: `@abeguin`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    siteUrl: `https://abeguin.github.io/counter/`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
