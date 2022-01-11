@@ -8,7 +8,7 @@
 import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 
-import tw from "twin.macro"
+import tw, { GlobalStyles } from "twin.macro"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -31,6 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <Container>
+      <GlobalStyles />
       <Main>
         {children}
       </Main>

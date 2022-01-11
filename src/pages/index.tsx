@@ -5,7 +5,7 @@ import Seo from "../components/seo"
 import tw from "twin.macro"
 
 import Home from "../assets/home.inline.svg"
-import Plan from "../plan/Plan"
+import Plan from "../plan/plan"
 
 const CounterContainer = tw.div`flex flex-col h-full w-full items-center justify-center`
 const Line = tw.div`flex items-center`

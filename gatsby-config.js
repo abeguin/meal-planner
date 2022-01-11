@@ -1,11 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Count down`,
-    description: `Count down for the house !`,
+    title: `Meal planner`,
+    description: `Define a goal, compose meals from a list of ingredients, plan your meal to achieve your goal`,
     author: `@abeguin`,
-    siteUrl: `https://abeguin.github.io/counter/`
+    siteUrl: `https://abeguin.github.io/meal-planner/`
   },
-  pathPrefix: `/counter`,
+  pathPrefix: `/meal-planner`,
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
@@ -15,24 +15,26 @@ module.exports = {
         name: `images`,
         path: `${__dirname}/src/images`
       }
-    },{
+    }, {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
           include: /\.inline\.svg$/,
           omitKeys: [
-            'xmlnsDc',
-            'xmlnsCc',
-            'xmlnsRdf',
-            'xmlnsSvg',
-            'xmlnsSodipodi',
-            'xmlnsInkscape',
-          ],
+            "xmlnsDc",
+            "xmlnsCc",
+            "xmlnsRdf",
+            "xmlnsSvg",
+            "xmlnsSodipodi",
+            "xmlnsInkscape"
+          ]
         }
       }
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-emotion`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -46,9 +48,16 @@ module.exports = {
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
       }
+    },
+      // this (optional) plugin enables Progressive Web App + Offline functionality
+      // To learn more, visit: https://gatsby.dev/offline
+      // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true,
+        tailwind: true
+      }
     }
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
   ]
 }
