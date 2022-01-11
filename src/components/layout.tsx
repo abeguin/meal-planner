@@ -7,7 +7,6 @@
 
 import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
-
 import tw, { GlobalStyles } from "twin.macro"
 
 type LayoutProps = {

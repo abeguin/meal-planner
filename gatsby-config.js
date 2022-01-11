@@ -58,6 +58,6 @@ module.exports = {
         printRejected: true,
         tailwind: true
       }
-    }
+    },
   ]
 }
