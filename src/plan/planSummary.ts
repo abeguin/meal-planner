@@ -8,11 +8,11 @@ import { Goal } from "./goal"
 export type PlanSummary = {
   id?: string;
   weight: KG;
-  fat: Percentage;
-  activityFactor: number;
+  bodyFat: Percentage;
+  activityCoefficient: number;
   maintenance: KgCalorie;
   delta: Percentage;
-  proteinFactor: GramPerKg;
-  lipidFactor: GramPerKg;
+  proteinCoefficient: GramPerKg;
+  lipidCoefficient: GramPerKg;
   goal: Goal;
 }
