@@ -44,10 +44,19 @@ export const {
 /**
  * Async actions
  */
+
+const LOCAL_STORAGE_IDS_KEY = "meals-planner-all-meals-ids"
+
 export const postMeal = (meal: Meal) =>
   async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
     const id = nanoid()
     localStorage.setItem(id, JSON.stringify({ ...meal, id }))
+    const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
+    let ids = [ id ]
+    if (mealsId) {
+      ids = [ ...ids, ...JSON.parse(mealsId) ]
+    }
+    localStorage.setItem(LOCAL_STORAGE_IDS_KEY, JSON.stringify(ids))
     dispatch(add(meal))
   }
 
