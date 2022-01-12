@@ -55,7 +55,7 @@ const Plan: React.FC = () => {
         css={[ tw`grid grid-cols-1 gap-4 m-8` ]}
       >
         <Typography variant={"h6"}>
-          Baseline
+          Personal information
         </Typography>
         <TextField
           label="Weight"
@@ -86,7 +86,7 @@ const Plan: React.FC = () => {
         />
         <Divider />
         <Typography variant={"h6"}>
-          Goal
+          Energetic deficit
         </Typography>
         <TextField
           label="Energy deficit"
@@ -100,7 +100,7 @@ const Plan: React.FC = () => {
         />
         <Divider />
         <Typography variant={"h6"}>
-          Constraints
+          Intake constraints
         </Typography>
         <TextField
           label="Protein coefficient"
@@ -108,6 +108,9 @@ const Plan: React.FC = () => {
           value={plan.proteinCoefficient}
           onChange={handleChange("proteinCoefficient")}
           type={"number"}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">g/kg</InputAdornment>
+          }}
         />
         <TextField
           label="Lipid coefficient"
@@ -115,6 +118,9 @@ const Plan: React.FC = () => {
           value={plan.lipidCoefficient}
           onChange={handleChange("lipidCoefficient")}
           type={"number"}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">g/kg</InputAdornment>
+          }}
         />
         <Button
           variant={"outlined"}

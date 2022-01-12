@@ -33,7 +33,7 @@ const Summary: React.FC = () => {
   return (
     <TableContainer component={Paper} css={[ tw`mt-8 p-8` ]}>
       <Typography variant={"h6"}>
-        Summary
+        Daily intake summary
       </Typography>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>

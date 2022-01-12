@@ -9,13 +9,14 @@ import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import tw, { GlobalStyles } from "twin.macro"
 import Background from "./background"
+import TopBar from "./topBar"
 
 type LayoutProps = {
   children: React.ReactNode
 }
 
 const Container = tw.div`flex flex-1 flex-col h-screen`
-const Main = tw.main`flex flex-1 flex-col items-center`
+const Main = tw.main`flex flex-1 flex-col items-center justify-center`
 const Footer = tw.footer`flex justify-center w-full mt-2 py-2 shadow-inner`
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
@@ -32,6 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <Background>
       <Container>
+        <TopBar />
         <GlobalStyles />
         <Main>
           {children}
