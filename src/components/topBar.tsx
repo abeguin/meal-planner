@@ -18,7 +18,7 @@ const TopBar: React.FC = () => {
               <Link to={"/"} css={tw`px-4`}>
                 Plan
               </Link>
-              <Link to={"/food"}>
+              <Link to={"/meal"}>
                 Meals
               </Link>
             </Box>

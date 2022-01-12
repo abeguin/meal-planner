@@ -11,7 +11,7 @@ const adapter = createEntityAdapter<Food>()
  * Initial state & reducers
  */
 export const foodSlice = createSlice({
-  name: "plan",
+  name: "food",
   initialState: {
     ids: [],
     entities: {}
