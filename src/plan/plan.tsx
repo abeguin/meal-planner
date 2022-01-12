@@ -63,7 +63,7 @@ const Plan: React.FC = () => {
   const renderActivityOptions = () => {
     const freq: ActivityFrequency[] = Object.keys(ACTIVITY_FACTORS) as ActivityFrequency[]
     return freq.map(key => (
-      <MenuItem value={key}>
+      <MenuItem value={key} key={key}>
         {ACTIVITY_FACTORS[key].label}
       </MenuItem>)
     )

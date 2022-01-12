@@ -28,14 +28,6 @@ export const foodSlice = createSlice({
 export const { add, addMany } = foodSlice.actions
 
 /**
- * Async actions
- */
-export const fetchFood = async (dispatch: Dispatch, getState: () => FoodState) => {
-  const food = await fakeApi.fetchFood()
-  dispatch(addMany(food))
-}
-
-/**
  * Selectors
  */
 export const foodState = (state: RootState) => state.food
@@ -43,5 +35,14 @@ export const {
   selectById,
   selectAll
 } = adapter.getSelectors(foodState)
+
+
+/**
+ * Async actions
+ */
+export const fetchFood = async (dispatch: Dispatch, getState: typeof foodState): Promise<void> => {
+  const food = await fakeApi.fetchFood()
+  dispatch(addMany(food))
+}
 
 export default foodSlice.reducer

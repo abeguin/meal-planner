@@ -22,7 +22,7 @@ const GoalSummary: React.FC<{ plan?: PlanSummary }> = ({ plan }) => {
       const prot = plan?.goal?.proteinPercentage?.value ?? 0
       const lipid = plan?.goal?.lipidPercentage?.value ?? 0
       const carb = plan?.goal?.carbohydratePercentage?.value ?? 0
-      const total = Percentage.from((prot + lipid + carb) * 100).toString()
+      const total = Percentage.from((prot + lipid + carb)).displayValue
       setTotal(total)
     }
   })
@@ -46,25 +46,25 @@ const GoalSummary: React.FC<{ plan?: PlanSummary }> = ({ plan }) => {
             <TableCell component="th" scope="row">
               Protein
             </TableCell>
-            <TableCell align="right">{plan?.goal?.protein?.amount?.toString()}</TableCell>
-            <TableCell align="right">{plan?.goal?.protein?.energy?.toString()}</TableCell>
-            <TableCell align="right">{plan?.goal?.proteinPercentage?.toString()}</TableCell>
+            <TableCell align="right">{plan?.goal?.protein?.amount?.displayValue}</TableCell>
+            <TableCell align="right">{plan?.goal?.protein?.energy?.displayValue}</TableCell>
+            <TableCell align="right">{plan?.goal?.proteinPercentage?.displayValue}</TableCell>
           </TableRow>
           <TableRow key={"Carbohydrate"}>
             <TableCell component="th" scope="row">
               Carbohydrate
             </TableCell>
-            <TableCell align="right">{plan?.goal?.carbohydrate?.amount?.toString()}</TableCell>
-            <TableCell align="right">{plan?.goal?.carbohydrate?.energy?.toString()}</TableCell>
-            <TableCell align="right">{plan?.goal?.carbohydratePercentage?.toString()}</TableCell>
+            <TableCell align="right">{plan?.goal?.carbohydrate?.amount?.displayValue}</TableCell>
+            <TableCell align="right">{plan?.goal?.carbohydrate?.energy?.displayValue}</TableCell>
+            <TableCell align="right">{plan?.goal?.carbohydratePercentage?.displayValue}</TableCell>
           </TableRow>
           <TableRow key={"Lipid"}>
             <TableCell component="th" scope="row">
               Lipid
             </TableCell>
-            <TableCell align="right">{plan?.goal?.lipid?.amount?.toString()}</TableCell>
-            <TableCell align="right">{plan?.goal?.lipid?.energy?.toString()}</TableCell>
-            <TableCell align="right">{plan?.goal?.lipidPercentage?.toString()}</TableCell>
+            <TableCell align="right">{plan?.goal?.lipid?.amount?.displayValue}</TableCell>
+            <TableCell align="right">{plan?.goal?.lipid?.energy?.displayValue}</TableCell>
+            <TableCell align="right">{plan?.goal?.lipidPercentage?.displayValue}</TableCell>
           </TableRow>
           <TableRow key={"Total"}>
             <TableCell component="th" scope="row">
@@ -73,7 +73,7 @@ const GoalSummary: React.FC<{ plan?: PlanSummary }> = ({ plan }) => {
             <TableCell align="right">-</TableCell>
             <TableCell align="right">
               {
-                plan?.goal?.calories?.toString()
+                plan?.goal?.calories?.displayValue
               }
             </TableCell>
             <TableCell align="right">

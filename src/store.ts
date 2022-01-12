@@ -8,13 +8,12 @@ const store = configureStore({
   reducer: {
     plan: planSlice,
     food: foodSlice,
-    meal: mealSlice,
+    meal: mealSlice
   },
   middleware: getDefaultMiddleware => [
     thunkMiddleware,
-    ...getDefaultMiddleware({
-      serializableCheck: false // Quick fix, see https://stackoverflow.com/questions/61704805/getting-an-error-a-non-serializable-value-was-detected-in-the-state-when-using
-    }) ]
+    ...getDefaultMiddleware()
+  ]
 })
 
 const createStore = () => store

@@ -1,8 +1,11 @@
 import { Unit } from "./unit"
 
-export type Percentage = Unit;
+export type Percentage = Unit & { displayDecimalValue: string, decimalValue: number };
 
 export const from = (value: number): Percentage => ({
-  value: value / 100,
-  toString: () => `${(value * 100).toPrecision(3)}%`
-})
+    value,
+    displayValue: `${(+value).toPrecision(3)}%`,
+    decimalValue: value / 100,
+    displayDecimalValue: `${(+value / 100).toPrecision(3)}`
+  }
+)

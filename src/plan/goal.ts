@@ -26,14 +26,14 @@ export const from = (
   proteinCoefficient: GPerKg.GramPerKg,
   lipidCoefficient: GPerKg.GramPerKg
 ): Goal => {
-  const calories = KgCalorieUnit.from(maintenance.value * (1 - delta.value))
-  const protein = Protein.from((1 - bodyFat.value) * proteinCoefficient.value * weight.value)
-  const lipid = Lipid.from((1 - bodyFat.value) * lipidCoefficient.value * weight.value)
+  const calories = KgCalorieUnit.from(maintenance.value * (1 - delta.decimalValue))
+  const protein = Protein.from((1 - bodyFat.decimalValue) * proteinCoefficient.value * weight.value)
+  const lipid = Lipid.from((1 - bodyFat.decimalValue) * lipidCoefficient.value * weight.value)
   const energyLeft = calories.value - protein.energy.value - lipid.energy.value
   const carbohydrate = Carbohydrate.from(energyLeft)
-  const proteinPercentage = PercentageUnit.from(protein.energy.value / calories.value)
-  const lipidPercentage = PercentageUnit.from(lipid.energy.value / calories.value)
-  const carbohydratePercentage = PercentageUnit.from(carbohydrate.energy.value / calories.value)
+  const proteinPercentage = PercentageUnit.from(protein.energy.value / calories.value * 100)
+  const lipidPercentage = PercentageUnit.from(lipid.energy.value / calories.value * 100)
+  const carbohydratePercentage = PercentageUnit.from(carbohydrate.energy.value / calories.value * 100)
   return {
     calories,
     protein,

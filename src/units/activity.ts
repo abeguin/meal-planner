@@ -42,5 +42,5 @@ export const ACTIVITY_FACTORS: { [key in ActivityFrequency]: ActivityFactor } = 
 export const from = (value: ActivityFrequency): Activity => ({
   frequency: value,
   value: ACTIVITY_FACTORS[value].factor,
-  toString: () => ACTIVITY_FACTORS[value].label
+  displayValue: ACTIVITY_FACTORS[value].label
 })

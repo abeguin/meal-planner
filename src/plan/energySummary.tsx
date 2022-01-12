@@ -22,13 +22,13 @@ const EnergySummary: React.FC<{ plan?: PlanSummary }> = ({ plan }) => {
             <TableCell component="th" scope="row">
               Maintenance
             </TableCell>
-            <TableCell align="right">{plan?.maintenance?.toString()}</TableCell>
+            <TableCell align="right">{plan?.maintenance?.displayValue}</TableCell>
           </TableRow>
           <TableRow key={"Carbohydrate"}>
             <TableCell component="th" scope="row">
               Goal
             </TableCell>
-            <TableCell align="right">{plan?.goal?.calories?.toString()}</TableCell>
+            <TableCell align="right">{plan?.goal?.calories?.displayValue}</TableCell>
           </TableRow>
         </TableBody>
       </Table>

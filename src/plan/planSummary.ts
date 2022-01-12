@@ -26,7 +26,7 @@ export const computeMaintenance = (
   bodyFat: PercentageUnit.Percentage,
   activityCoefficient: Activity.Activity
 ): KgCalorieUnit.KgCalorie => {
-  const weightWithoutBodyFat = 1 - bodyFat.value
+  const weightWithoutBodyFat = 1 - bodyFat.decimalValue
   const baseMetabolism = weightWithoutBodyFat * ENERGY_BURN_COEFFICIENT * weight.value
   const energyBurn = (baseMetabolism + BASE_CALORIE) * activityCoefficient.value
   return KgCalorieUnit.from(energyBurn)

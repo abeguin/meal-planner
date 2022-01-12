@@ -4,5 +4,5 @@ export type ML = Unit;
 
 export const from = (value: number): ML => ({
   value,
-  toString: () => `${value.toFixed(0)} [ml]`
+  displayValue: `${(+value).toFixed(0)}ml`
 })

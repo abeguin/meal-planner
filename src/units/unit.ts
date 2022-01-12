@@ -1,4 +1,4 @@
 export type Unit = {
   value: number;
-  toString: () => string;
+  displayValue: string;
 }
