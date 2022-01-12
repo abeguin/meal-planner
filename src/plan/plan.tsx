@@ -3,13 +3,27 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import * as fromPlan from "./planSlice"
 import tw from "twin.macro"
-import { Box, Button, Divider, InputAdornment, Paper, TextField, Typography } from "@mui/material"
+import {
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  Typography
+} from "@mui/material"
 import { buildPlanSummary } from "./planSummary"
+import { ACTIVITY_FACTORS, ActivityFrequency } from "../units/activity"
 
 export type PlanFormFields = {
   weight?: number,
   bodyFat?: number,
-  activityCoefficient?: number,
+  activityCoefficient?: ActivityFrequency,
   delta?: number,
   proteinCoefficient?: number,
   lipidCoefficient?: number,
@@ -21,7 +35,7 @@ const Plan: React.FC = () => {
   const [ plan, setPlan ] = useState<PlanFormFields>({
     weight: 67,
     bodyFat: 17,
-    activityCoefficient: 1.35,
+    activityCoefficient: "NONE",
     delta: 25,
     proteinCoefficient: 2.3,
     lipidCoefficient: 1.5
@@ -30,7 +44,9 @@ const Plan: React.FC = () => {
   const [ valid, setValid ] = useState<boolean>(false)
 
   const validateForm = (): void => {
-    const incomplete = Object.values(plan).map(v => !!v).includes(false)
+    const incomplete = Object.values(plan)
+      .map((v: number | ActivityFrequency) => !!v)
+      .includes(false)
     setValid(!incomplete)
   }
 
@@ -38,9 +54,22 @@ const Plan: React.FC = () => {
     setPlan({ ...plan, [prop]: event?.target?.value })
   }
 
+  const handleOptionChange = (prop: keyof PlanFormFields) => (event: SelectChangeEvent) => {
+    setPlan({ ...plan, [prop]: event?.target?.value })
+  }
+
   const handleSubmit = () => {
     const p = buildPlanSummary(plan)
     dispatch(fromPlan.add(p))
+  }
+
+  const renderActivityOptions = () => {
+    const freq: ActivityFrequency[] = Object.keys(ACTIVITY_FACTORS) as ActivityFrequency[]
+    return freq.map(key => (
+      <MenuItem value={key}>
+        {ACTIVITY_FACTORS[key].label}
+      </MenuItem>)
+    )
   }
 
   useEffect(() => {
@@ -77,13 +106,18 @@ const Plan: React.FC = () => {
             endAdornment: <InputAdornment position="end">%</InputAdornment>
           }}
         />
-        <TextField
-          label="Activity coefficient"
-          id="activityCoefficient"
-          value={plan.activityCoefficient}
-          onChange={handleChange("activityCoefficient")}
-          type={"number"}
-        />
+        <FormControl>
+          <InputLabel id="activity-label">Activity frequency</InputLabel>
+          <Select
+            labelId="activity-label"
+            id="activity-coefficient"
+            value={plan.activityCoefficient}
+            label={"Activity frequency"}
+            onChange={handleOptionChange("activityCoefficient")}
+          >
+            {renderActivityOptions()}
+          </Select>
+        </FormControl>
         <Divider />
         <Typography variant={"h6"}>
           Energetic deficit
