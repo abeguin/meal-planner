@@ -1,11 +1,10 @@
 import * as React from "react"
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import * as fromPlan from "./planSlice"
 import tw from "twin.macro"
 import {
   Box,
-  Button,
   Divider,
   FormControl,
   InputAdornment,
@@ -32,23 +31,26 @@ export type PlanFormFields = {
 const Plan: React.FC = () => {
   const dispatch = useDispatch()
 
+  const lastPlan = useSelector(fromPlan.lastPlan)
+
   const [ plan, setPlan ] = useState<PlanFormFields>({
-    weight: 67,
-    bodyFat: 17,
-    activityCoefficient: "NONE",
-    delta: 25,
-    proteinCoefficient: 2.3,
-    lipidCoefficient: 1.5
+    weight: lastPlan?.weight?.value ?? 67,
+    bodyFat: lastPlan?.bodyFat?.value ? lastPlan.bodyFat.value * 100 : 17,
+    activityCoefficient: lastPlan?.activityCoefficient?.frequency ?? "NONE",
+    delta: lastPlan?.delta?.value ? lastPlan.delta.value * 100 : 25,
+    proteinCoefficient: lastPlan?.proteinCoefficient?.value ?? 2.3,
+    lipidCoefficient: lastPlan?.lipidCoefficient?.value ?? 1.5
   })
 
-  const [ valid, setValid ] = useState<boolean>(false)
-
-  const validateForm = (): void => {
+  useEffect(() => {
     const incomplete = Object.values(plan)
       .map((v: number | ActivityFrequency) => !!v)
       .includes(false)
-    setValid(!incomplete)
-  }
+    if (!incomplete) {
+      const p = buildPlanSummary(plan)
+      dispatch(fromPlan.add(p))
+    }
+  }, [ plan ])
 
   const handleChange = (prop: keyof PlanFormFields) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlan({ ...plan, [prop]: event?.target?.value })
@@ -56,11 +58,6 @@ const Plan: React.FC = () => {
 
   const handleOptionChange = (prop: keyof PlanFormFields) => (event: SelectChangeEvent) => {
     setPlan({ ...plan, [prop]: event?.target?.value })
-  }
-
-  const handleSubmit = () => {
-    const p = buildPlanSummary(plan)
-    dispatch(fromPlan.add(p))
   }
 
   const renderActivityOptions = () => {
@@ -71,10 +68,6 @@ const Plan: React.FC = () => {
       </MenuItem>)
     )
   }
-
-  useEffect(() => {
-    validateForm()
-  })
 
   return (
     <Paper css={[ tw`mt-8` ]}>
@@ -156,12 +149,6 @@ const Plan: React.FC = () => {
             endAdornment: <InputAdornment position="end">g/kg</InputAdornment>
           }}
         />
-        <Button
-          variant={"outlined"}
-          disabled={!valid}
-          onClick={handleSubmit}>
-          Save
-        </Button>
       </Box>
     </Paper>
   )
