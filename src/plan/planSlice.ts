@@ -11,15 +11,24 @@ export const planSlice = createSlice({
   },
   reducers: {
     add: {
-      reducer: adapter.addOne,
-      prepare(plan) {
+      reducer: (state, action) => {
         const id = nanoid()
-        return {
-          payload: {
-            ...plan,
-            id
-          }
+        console.log({ action, id })
+        //@ts-ignore
+        state.entities[id] = {
+          ...action.payload,
+          id,
+          weight: { ...action.payload.weight },
+          bodyFat: { ...action.payload.bodyFat },
+          activityCoefficient: { ...action.payload.activityCoefficient },
+          delta: { ...action.payload.delta },
+          proteinCoefficient: { ...action.payload.proteinCoefficient },
+          lipidCoefficient: { ...action.payload.lipidCoefficient },
+          maintenance: { ...action.payload.maintenance },
+          goal: { ...action.payload.goal }
         }
+        //@ts-ignore
+        state.ids.push(id)
       }
     }
   }

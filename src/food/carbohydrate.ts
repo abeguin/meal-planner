@@ -12,4 +12,8 @@ export class Carbohydrate extends Macronutrient {
     const amount = typeof a === "number" ? a : a.value
     this.energy = new KgCalorie(amount * this.#factor)
   }
+
+  static from(energy: number): Carbohydrate {
+    return new Carbohydrate(energy / 4)
+  }
 }
