@@ -12,6 +12,10 @@ export type Goal = {
   readonly protein: Protein.Protein
   readonly lipid: Lipid.Lipid
   readonly carbohydrate: Carbohydrate.Carbohydrate
+  readonly proteinPercentage: PercentageUnit.Percentage
+  readonly lipidPercentage: PercentageUnit.Percentage
+  readonly carbohydratePercentage: PercentageUnit.Percentage
+
 }
 
 export const from = (
@@ -27,10 +31,16 @@ export const from = (
   const lipid = Lipid.from((1 - bodyFat.value) * lipidCoefficient.value * weight.value)
   const energyLeft = calories.value - protein.energy.value - lipid.energy.value
   const carbohydrate = Carbohydrate.from(energyLeft)
+  const proteinPercentage = PercentageUnit.from(protein.energy.value / calories.value)
+  const lipidPercentage = PercentageUnit.from(lipid.energy.value / calories.value)
+  const carbohydratePercentage = PercentageUnit.from(carbohydrate.energy.value / calories.value)
   return {
     calories,
     protein,
     lipid,
-    carbohydrate
+    carbohydrate,
+    proteinPercentage,
+    lipidPercentage,
+    carbohydratePercentage
   }
 }

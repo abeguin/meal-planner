@@ -4,5 +4,5 @@ export type KG = Unit;
 
 export const from = (value: number): KG => ({
   value,
-  toString: () => `${value} [kg]`
+  toString: () => `${value.toFixed(1)} [kg]`
 })

@@ -4,5 +4,5 @@ export type G = Unit;
 
 export const from = (value: number): G => ({
   value,
-  toString: () => `${value} [g]`
+  toString: () => `${value.toFixed(0)} [g]`
 })

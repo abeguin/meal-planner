@@ -4,5 +4,5 @@ export type Percentage = Unit;
 
 export const from = (value: number): Percentage => ({
   value: value / 100,
-  toString: () => `${value * 100}%`
+  toString: () => `${(value * 100).toPrecision(3)}%`
 })

@@ -4,5 +4,5 @@ export type KgCalorie = Unit;
 
 export const from = (value: number): KgCalorie => ({
   value,
-  toString: () => `${value} [kg calorie]`
+  toString: () => `${value.toFixed(0)} [kg calorie]`
 })

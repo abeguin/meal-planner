@@ -52,7 +52,7 @@ const Plan: React.FC = () => {
       <Box
         component={"form"}
         autoComplete={"off"}
-        css={[ tw`grid grid-cols-1 gap-4 m-16` ]}
+        css={[ tw`grid grid-cols-1 gap-4 m-8` ]}
       >
         <Typography variant={"h6"}>
           Baseline
@@ -89,7 +89,7 @@ const Plan: React.FC = () => {
           Goal
         </Typography>
         <TextField
-          label="Caloric deficit"
+          label="Energy deficit"
           id="caloricDeficit"
           value={plan.delta}
           onChange={handleChange("delta")}
@@ -120,7 +120,7 @@ const Plan: React.FC = () => {
           variant={"outlined"}
           disabled={!valid}
           onClick={handleSubmit}>
-          Submit
+          Save
         </Button>
       </Box>
     </Paper>
