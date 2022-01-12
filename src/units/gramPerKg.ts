@@ -1,12 +1,8 @@
 import { Unit } from "./unit"
 
-export class GramPerKg extends Unit {
+export type GramPerKg = Unit;
 
-  constructor(v: number) {
-    super(v)
-  }
-
-  toString(): string {
-    return `${this.value}g/kg`
-  }
-}
+export const from = (value: number): GramPerKg => ({
+  value,
+  toString: () => `${value} [g/kg]`
+})

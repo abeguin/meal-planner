@@ -1,65 +1,55 @@
-import { KG } from "../units/kg"
-import { Percentage } from "../units/percentage"
-import { KgCalorie } from "../units/kgCalorie"
-import { GramPerKg } from "../units/gramPerKg"
-import { Goal } from "./goal"
+import * as KgUnit from "../units/kg"
+import * as PercentageUnit from "../units/percentage"
+import * as KgCalorieUnit from "../units/kgCalorie"
+import * as GramPerKgUnit from "../units/gramPerKg"
+import * as Goal from "./goal"
 import { PlanFormFields } from "./plan"
-
 
 export type PlanSummary = {
   id?: string
-  weight?: KG
-  bodyFat?: Percentage
+  weight?: KgUnit.KG
+  bodyFat?: PercentageUnit.Percentage
   activityCoefficient?: number
-  maintenance?: KgCalorie
-  delta?: Percentage
-  proteinCoefficient?: GramPerKg
-  lipidCoefficient?: GramPerKg
-  goal?: Goal
+  maintenance?: KgCalorieUnit.KgCalorie
+  delta?: PercentageUnit.Percentage
+  proteinCoefficient?: GramPerKgUnit.GramPerKg
+  lipidCoefficient?: GramPerKgUnit.GramPerKg
+  goal?: Goal.Goal
 }
 
-
 export const BASE_CALORIE = 370
-export const ENERGY_BURN_COEFF = 21.6
+export const ENERGY_BURN_COEFFICIENT = 21.6
 
 export const computeMaintenance = (
-  weight: number,
-  bodyFat: Percentage,
+  weight: KgUnit.KG,
+  bodyFat: PercentageUnit.Percentage,
   activityCoefficient: number
-): KgCalorie => {
+): KgCalorieUnit.KgCalorie => {
   const weightWithoutBodyFat = 1 - bodyFat.value
-  const baseMetabolism = weightWithoutBodyFat * ENERGY_BURN_COEFF * weight
-  const energyBurn = baseMetabolism * activityCoefficient
-  console.log(
-    weight,
-    bodyFat,
-    activityCoefficient,
-    weightWithoutBodyFat,
-    baseMetabolism,
-    energyBurn
-  )
-  return new KgCalorie(energyBurn)
+  const baseMetabolism = weightWithoutBodyFat * ENERGY_BURN_COEFFICIENT * weight.value
+  const energyBurn = (baseMetabolism + BASE_CALORIE) * activityCoefficient
+  return KgCalorieUnit.from(energyBurn)
 }
 
 export const buildPlanSummary = (props: PlanFormFields) => {
   const {
-    weight = 0,
-    bodyFat = 0,
-    activityCoefficient = 1.1,
-    delta = 0,
-    proteinCoefficient = 1.5,
-    lipidCoefficient = 0.7
+    activityCoefficient = 1.1
   } = props
-  const maintenance = computeMaintenance(weight, new Percentage(bodyFat), activityCoefficient)
-  const goal = new Goal(weight, bodyFat, maintenance.value, delta, proteinCoefficient, lipidCoefficient)
+  const weight = KgUnit.from(props.weight ?? 0)
+  const bodyFat = PercentageUnit.from(props.bodyFat ?? 0)
+  const delta = PercentageUnit.from(props.delta ?? 0)
+  const proteinCoefficient = GramPerKgUnit.from(props.proteinCoefficient ?? 1)
+  const lipidCoefficient = GramPerKgUnit.from(props.lipidCoefficient ?? 0.7)
+  const maintenance = computeMaintenance(weight, bodyFat, activityCoefficient)
+  const goal = Goal.from(weight, bodyFat, maintenance, delta, proteinCoefficient, lipidCoefficient)
   return {
-    weight: new KG(weight),
-    bodyFat: new Percentage(bodyFat),
+    weight,
+    bodyFat,
     activityCoefficient,
-    delta: new Percentage(delta),
-    proteinCoefficient: new GramPerKg(proteinCoefficient),
-    lipidCoefficient: new GramPerKg(lipidCoefficient),
+    delta,
+    proteinCoefficient,
+    lipidCoefficient,
     maintenance,
     goal
-  } as PlanSummary
+  }
 }

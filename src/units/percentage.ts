@@ -1,12 +1,8 @@
 import { Unit } from "./unit"
 
-export class Percentage extends Unit {
+export type Percentage = Unit;
 
-  constructor(v: number) {
-    super(v / 100)
-  }
-
-  toString(): string {
-    return `${this.value * 100}%`
-  }
-}
+export const from = (value: number): Percentage => ({
+  value: value / 100,
+  toString: () => `${value * 100}%`
+})

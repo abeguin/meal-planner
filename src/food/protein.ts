@@ -1,15 +1,12 @@
-import { G } from "../units/g"
+import * as GUnit from "../units/g"
 import { Macronutrient } from "./macronutrient"
-import { KgCalorie } from "../units/kgCalorie"
+import * as KgCalorieUnit from "../units/kgCalorie"
 
+export const PROTEIN_ENERGY_COEFFICIENT = 4
 
-export class Protein extends Macronutrient {
-  readonly energy: KgCalorie
-  readonly #factor: number = 4
+export type Protein = Macronutrient;
 
-  constructor(a: number | G) {
-    super(a)
-    const amount = typeof a === "number" ? a : a.value
-    this.energy = new KgCalorie(amount * this.#factor)
-  }
-}
+export const from = (amount: number): Protein => ({
+  amount: GUnit.from(amount),
+  energy: KgCalorieUnit.from(amount * PROTEIN_ENERGY_COEFFICIENT)
+})

@@ -1,12 +1,8 @@
 import { Unit } from "./unit"
 
-export class KgCalorie extends Unit {
+export type KgCalorie = Unit;
 
-  constructor(v: number) {
-    super(v)
-  }
-
-  toString(): string {
-    return `${this.value}`
-  }
-}
+export const from = (value: number): KgCalorie => ({
+  value,
+  toString: () => `${value} [kg calorie]`
+})

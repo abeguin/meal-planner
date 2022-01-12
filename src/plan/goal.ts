@@ -1,27 +1,36 @@
-import { KgCalorie } from "../units/kgCalorie"
-import { Lipid } from "../food/lipid"
-import { Protein } from "../food/protein"
-import { Carbohydrate } from "../food/carbohydrate"
+import * as KgCalorieUnit from "../units/kgCalorie"
+import * as KgUnit from "../units/kg"
+import * as PercentageUnit from "../units/percentage"
+import * as GPerKg from "../units/gramPerKg"
+import * as Protein from "../food/protein"
+import * as Lipid from "../food/lipid"
+import * as Carbohydrate from "../food/carbohydrate"
 
 
-export class Goal {
-  readonly #calories: KgCalorie
-  readonly #protein: Protein
-  readonly #lipid: Lipid
-  readonly #carbohydrate: Carbohydrate
+export type Goal = {
+  readonly calories: KgCalorieUnit.KgCalorie
+  readonly protein: Protein.Protein
+  readonly lipid: Lipid.Lipid
+  readonly carbohydrate: Carbohydrate.Carbohydrate
+}
 
-  constructor(
-    weight: number,
-    bodyFat: number,
-    maintenance: number,
-    delta: number,
-    proteinCoefficient: number,
-    lipidCoefficient: number
-  ) {
-    this.#calories = new KgCalorie(maintenance * (1 - delta))
-    this.#protein = new Protein((1 - bodyFat) * proteinCoefficient * weight)
-    this.#lipid = new Lipid((1 - bodyFat) * lipidCoefficient * weight)
-    const energyLeft = this.#calories.value - this.#protein.energy.value - this.#lipid.energy.value
-    this.#carbohydrate = Carbohydrate.from(energyLeft)
+export const from = (
+  weight: KgUnit.KG,
+  bodyFat: PercentageUnit.Percentage,
+  maintenance: KgCalorieUnit.KgCalorie,
+  delta: PercentageUnit.Percentage,
+  proteinCoefficient: GPerKg.GramPerKg,
+  lipidCoefficient: GPerKg.GramPerKg
+): Goal => {
+  const calories = KgCalorieUnit.from(maintenance.value * (1 - delta.value))
+  const protein = Protein.from((1 - bodyFat.value) * proteinCoefficient.value * weight.value)
+  const lipid = Lipid.from((1 - bodyFat.value) * lipidCoefficient.value * weight.value)
+  const energyLeft = calories.value - protein.energy.value - lipid.energy.value
+  const carbohydrate = Carbohydrate.from(energyLeft)
+  return {
+    calories,
+    protein,
+    lipid,
+    carbohydrate
   }
 }
