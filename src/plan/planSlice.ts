@@ -33,8 +33,8 @@ export const { add } = planSlice.actions
 /**
  * Selectors
  */
-export const { selectById } = adapter.getSelectors()
 export const planState = (state: RootState) => state.plan
+export const { selectById } = adapter.getSelectors(planState)
 export const lastPlan = createDraftSafeSelector(
   planState,
   (state: PlanState): PlanSummary => {
