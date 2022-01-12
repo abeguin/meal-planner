@@ -35,9 +35,9 @@ const Plan: React.FC = () => {
 
   const [ plan, setPlan ] = useState<PlanFormFields>({
     weight: lastPlan?.weight?.value ?? 67,
-    bodyFat: lastPlan?.bodyFat?.value ? lastPlan.bodyFat.value * 100 : 17,
+    bodyFat: lastPlan?.bodyFat?.value ? lastPlan.bodyFat.value : 17,
     activityCoefficient: lastPlan?.activityCoefficient?.frequency ?? "NONE",
-    delta: lastPlan?.delta?.value ? lastPlan.delta.value * 100 : 25,
+    delta: lastPlan?.delta?.value ? lastPlan.delta.value : 25,
     proteinCoefficient: lastPlan?.proteinCoefficient?.value ?? 2.3,
     lipidCoefficient: lastPlan?.lipidCoefficient?.value ?? 1.5
   })
