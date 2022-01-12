@@ -8,6 +8,7 @@
 import * as React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import tw, { GlobalStyles } from "twin.macro"
+import Background from "./background"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -29,16 +30,18 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   `)
 
   return (
-    <Container>
-      <GlobalStyles />
-      <Main>
-        {children}
-      </Main>
-      <Footer>
-        © {new Date().getFullYear()}, Built with&nbsp;
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
-      </Footer>
-    </Container>
+    <Background>
+      <Container>
+        <GlobalStyles />
+        <Main>
+          {children}
+        </Main>
+        <Footer>
+          © {new Date().getFullYear()}, Built with&nbsp;
+          <a href="https://www.gatsbyjs.com">Gatsby</a>
+        </Footer>
+      </Container>
+    </Background>
   )
 }
 
