@@ -19,7 +19,8 @@ const mealSlice = createSlice({
   reducers: {
     add: adapter.upsertOne,
     remove: adapter.removeOne,
-    update: adapter.updateOne
+    update: adapter.updateOne,
+    addMany: adapter.addMany
   }
 })
 
@@ -28,7 +29,7 @@ const mealReducer = mealSlice.reducer
 /**
  * Actions
  */
-export const { add, remove, update } = mealSlice.actions
+export const { add, remove, update, addMany } = mealSlice.actions
 
 /**
  * Selectors
@@ -39,7 +40,7 @@ export const {
   selectById,
   selectEntities,
   selectIds
-} = adapter.getSelectors()
+} = adapter.getSelectors(mealState)
 
 /**
  * Async actions
@@ -54,10 +55,11 @@ export const postMeal = (meal: Meal) =>
     const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
     let ids = [ id ]
     if (mealsId) {
-      ids = [ ...ids, ...JSON.parse(mealsId) ]
+      const stored: string[] = JSON.parse(mealsId)
+      ids = [ id, ...stored ]
     }
     localStorage.setItem(LOCAL_STORAGE_IDS_KEY, JSON.stringify(ids))
-    dispatch(add(meal))
+    dispatch(add({ ...meal, id }))
   }
 
 export const fetchMeal = (id: string) =>
@@ -70,6 +72,13 @@ export const fetchMeal = (id: string) =>
 
 export const deleteMeal = (id: string) =>
   async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
+    const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
+    if (mealsId) {
+      const ids: string[] = JSON.parse(mealsId)
+      const toDelete = ids.findIndex(storedId => storedId === id)
+      ids.splice(toDelete, 1)
+      localStorage.setItem(LOCAL_STORAGE_IDS_KEY, JSON.stringify(ids))
+    }
     localStorage.removeItem(id)
     dispatch(remove(id))
   }
@@ -81,5 +90,14 @@ export const updateMeal = (meal: Meal) =>
       dispatch(update({ id: meal.id, changes: meal }))
     }
   }
+
+export const fetchAll = async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
+  const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
+  if (mealsId) {
+    const ids: string[] = JSON.parse(mealsId)
+    const meals: Meal[] = ids.map(id => JSON.parse(localStorage.getItem(id) ?? "undefined"))
+    dispatch(addMany(meals))
+  }
+}
 
 export default mealReducer
