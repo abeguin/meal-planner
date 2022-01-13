@@ -4,11 +4,12 @@ import * as fromFood from "../food/foodSlice"
 import Seo from "../components/seo"
 import Layout from "../components/layout"
 import FoodList from "../food/foodList"
-import { Box, Button, Divider, Paper, TextField, Typography } from "@mui/material"
+import { Button, Divider, Paper, Typography } from "@mui/material"
 import tw from "twin.macro"
 import { Food } from "../food/food"
 import * as fromMeal from "../meal/mealSlice"
 import { Meal } from "../meal/meal"
+import MealName from "./mealName"
 
 const MealPage: React.FC = () => {
   const dispatch = useDispatch()
@@ -28,9 +29,7 @@ const MealPage: React.FC = () => {
     setChecked(newChecked)
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setName(event.target.value)
-  }
+  const onMealNameBlur = (name: string) => setName(name)
 
   const handleSave = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const meal: Meal = { name, ingredients: checked }
@@ -50,19 +49,7 @@ const MealPage: React.FC = () => {
         <Typography variant={"h6"}>
           Meal
         </Typography>
-        <Box
-          component={"form"}
-          autoComplete={"off"}
-          css={[ tw`grid grid-cols-1 gap-4 m-8` ]}
-        >
-          <TextField
-            label="Name"
-            id="name"
-            value={name}
-            onChange={handleChange}
-            type={"text"}
-          />
-        </Box>
+        <MealName onBlur={onMealNameBlur} />
         <Divider />
         <Typography variant={"h6"} css={tw`mt-8`}>
           Select ingredients
