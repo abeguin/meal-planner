@@ -1,7 +1,7 @@
 import { createEntityAdapter, createSlice, Dispatch, EntityState } from "@reduxjs/toolkit"
 import { Meal } from "./meal"
 import { RootState } from "../store"
-import { deleteSavedMeal, getAllSavedMeals, getSavedMeal, saveMeal } from "../persistence/localStorage"
+import { deleteSavedMeal, getAllSavedMeals, getSavedMeal, saveMeal } from "./mealStorage"
 
 
 export type MealState = EntityState<Meal>
@@ -46,9 +46,6 @@ export const {
 /**
  * Async actions
  */
-
-const LOCAL_STORAGE_IDS_KEY = "meals-planner-all-meals-ids"
-
 export const postMeal = (meal: Meal) =>
   async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
     const id = saveMeal(meal)
