@@ -1,6 +1,7 @@
-import { createEntityAdapter, createSlice, Dispatch, EntityState, nanoid } from "@reduxjs/toolkit"
+import { createEntityAdapter, createSlice, Dispatch, EntityState } from "@reduxjs/toolkit"
 import { Meal } from "./meal"
 import { RootState } from "../store"
+import { deleteSavedMeal, getAllSavedMeals, getSavedMeal, saveMeal } from "../persistence/localStorage"
 
 
 export type MealState = EntityState<Meal>
@@ -50,36 +51,21 @@ const LOCAL_STORAGE_IDS_KEY = "meals-planner-all-meals-ids"
 
 export const postMeal = (meal: Meal) =>
   async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
-    const id = nanoid()
-    localStorage.setItem(id, JSON.stringify({ ...meal, id }))
-    const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
-    let ids = [ id ]
-    if (mealsId) {
-      const stored: string[] = JSON.parse(mealsId)
-      ids = [ id, ...stored ]
-    }
-    localStorage.setItem(LOCAL_STORAGE_IDS_KEY, JSON.stringify(ids))
+    const id = saveMeal(meal)
     dispatch(add({ ...meal, id }))
   }
 
 export const fetchMeal = (id: string) =>
   async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
-    const meal = localStorage.getItem(id)
-    if (!!meal?.length) {
-      dispatch(add(JSON.parse(meal)))
+    const meal = getSavedMeal(id)
+    if (meal) {
+      dispatch(add(meal))
     }
   }
 
 export const deleteMeal = (id: string) =>
   async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
-    const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
-    if (mealsId) {
-      const ids: string[] = JSON.parse(mealsId)
-      const toDelete = ids.findIndex(storedId => storedId === id)
-      ids.splice(toDelete, 1)
-      localStorage.setItem(LOCAL_STORAGE_IDS_KEY, JSON.stringify(ids))
-    }
-    localStorage.removeItem(id)
+    deleteSavedMeal(id)
     dispatch(remove(id))
   }
 
@@ -92,12 +78,8 @@ export const updateMeal = (meal: Meal) =>
   }
 
 export const fetchAll = async (dispatch: Dispatch, getState: typeof mealState): Promise<void> => {
-  const mealsId = localStorage.getItem(LOCAL_STORAGE_IDS_KEY)
-  if (mealsId) {
-    const ids: string[] = JSON.parse(mealsId)
-    const meals: Meal[] = ids.map(id => JSON.parse(localStorage.getItem(id) ?? "undefined"))
-    dispatch(addMany(meals))
-  }
+  const meals = getAllSavedMeals()
+  dispatch(addMany(meals))
 }
 
 export default mealReducer
