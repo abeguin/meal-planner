@@ -1,7 +1,7 @@
 {
-  "name": "counter",
+  "name": "meal-planner",
   "private": true,
-  "description": "A simple counter",
+  "description": "Plan your meals to achieve your goal!",
   "version": "0.1.0",
   "author": "Arnaud Béguin <beguin.arnaud@gmail.com>",
   "dependencies": {
@@ -55,7 +55,11 @@
     "prettier": "^2.5.1"
   },
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "nutrition",
+    "sport",
+    "heath",
+    "cut diet"
   ],
   "license": "0BSD",
   "scripts": {
