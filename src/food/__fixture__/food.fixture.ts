@@ -7,9 +7,9 @@ import * as Lipid from "../lipid"
 import * as Calories from "../../units/kgCalorie"
 import * as ML from "../../units/ml"
 
-export const fetchFood = async (): Promise<Food[]> => Promise.resolve(foodFixture)
+export const fetchFood = async (): Promise<Food[]> => Promise.resolve(foodListFixture)
 
-export const foodFixture: Food[] = [
+export const foodListFixture: Food[] = [
   {
     id: nanoid(),
     name: "Avocat",
@@ -598,3 +598,12 @@ export const foodFixture: Food[] = [
 ]
 
 
+export const foodFixture = (name: string) => foodListFixture.find(f => f.name.toLowerCase().includes(name))
+
+export const rawRiceFixture = foodFixture('riz cru')
+export const chickenFixture = foodFixture('poulet')
+export const saladFixture = foodFixture('salade')
+export const dressingFixture = foodFixture('sauce')
+export const mayoFixture = foodFixture('mayo')
+export const beefFixture = foodFixture('boeuf')
+export const milletFixture = foodFixture('millet')
