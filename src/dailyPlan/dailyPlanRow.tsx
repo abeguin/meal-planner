@@ -4,6 +4,10 @@ import { DailyPlan } from "./dailyPlan"
 import { DeleteOutline } from "@mui/icons-material"
 import * as fromDailyPlan from "./dailyPlanSlice"
 import { useDispatch } from "react-redux"
+import { useProteinTotal } from "./useProteinTotal"
+import { useLipidTotal } from "./useLipidTotal"
+import { useCarbohydrateTotal } from "./useCarbohydrateTotal"
+import { useEnergyTotal } from "./useEnergyTotal"
 
 
 const DailyPlanRow: React.FC<{
@@ -22,6 +26,11 @@ const DailyPlanRow: React.FC<{
     }
   }
 
+  const [ protein, setProtein ] = useProteinTotal(dailyPlan)
+  const [ lipid, setLipid ] = useLipidTotal(dailyPlan)
+  const [ carbohydrate, setCarbohydrate ] = useCarbohydrateTotal(dailyPlan)
+  const [ energy, setEnergy ] = useEnergyTotal(dailyPlan)
+
   return (
     <ListItem
       key={dailyPlan.id}
@@ -34,7 +43,16 @@ const DailyPlanRow: React.FC<{
       disablePadding
     >
       <ListItemButton>
-        <ListItemText id={labelId} primary={dailyPlan?.date?.toDateString()} />
+        <ListItemText
+          id={labelId}
+          primary={dailyPlan?.date?.toDateString()}
+          secondary={`
+            ${energy.displayValue},
+            protein: ${protein.amount.displayValue},
+            lipid: ${lipid.amount.displayValue},
+            carbohydrate: ${carbohydrate.amount.displayValue}
+          `}
+        />
       </ListItemButton>
     </ListItem>
   )

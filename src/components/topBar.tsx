@@ -15,10 +15,10 @@ const TopBar: React.FC = () => {
               Meal planner
             </Typography>
             <Box css={tw`flex flex-row flex-1 items-center justify-end`}>
-              <Link to={"/"} css={tw`px-4`}>
+              <Link to={"/"} css={tw`pr-4`}>
                 Plan
               </Link>
-              <Link to={"/meals"}>
+              <Link to={"/meals"} css={tw`pr-4`}>
                 Meals
               </Link>
               <Link to={"/dailyPlans"}>

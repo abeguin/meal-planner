@@ -21,7 +21,11 @@ export const saveDailyPlan = (meal: DailyPlan): string => {
 }
 
 export const getSavedDailyPlan = (id: string): DailyPlan | undefined => {
-  return fromLocalStorage.get(id) as DailyPlan
+  const dailyPlan = fromLocalStorage.get(id) as DailyPlan
+  return {
+    ...dailyPlan,
+    date: new Date(dailyPlan.date)
+  } as DailyPlan
 }
 
 export const removeSavedDailyPlanId = (id: string): void => {
