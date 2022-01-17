@@ -21,6 +21,9 @@ const TopBar: React.FC = () => {
               <Link to={"/meals"}>
                 Meals
               </Link>
+              <Link to={"/dailyPlans"}>
+                Daily plans
+              </Link>
             </Box>
         </Toolbar>
       </AppBar>

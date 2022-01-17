@@ -3,12 +3,14 @@ import foodSlice from "./food/foodSlice"
 import planSlice from "./plan/planSlice"
 import thunkMiddleware from "redux-thunk"
 import mealSlice from "./meal/mealSlice"
+import dailyPlanSlice from './dailyPlan/dailyPlanSlice'
 
 const store = configureStore({
   reducer: {
     plan: planSlice,
     food: foodSlice,
-    meal: mealSlice
+    meal: mealSlice,
+    dailyPlan: dailyPlanSlice
   },
   middleware: getDefaultMiddleware => [
     thunkMiddleware,

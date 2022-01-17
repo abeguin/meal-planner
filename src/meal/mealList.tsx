@@ -1,11 +1,15 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { FixedSizeList } from "react-window"
 import { useDispatch, useSelector } from "react-redux"
 import * as fromMeal from "./mealSlice"
 import MealRow from "./mealRow"
+import { Meal } from "./meal"
 
 
-const MealList: React.FC = () => {
+const MealList: React.FC<{
+  checked: Meal[],
+  handleToggle: (value: Meal) => () => void
+}> = ({ checked, handleToggle }) => {
 
   const dispatch = useDispatch()
   const meals = useSelector(fromMeal.selectAll)
@@ -21,6 +25,8 @@ const MealList: React.FC = () => {
       {
         (props) => (
           <MealRow
+            handleToggle={handleToggle}
+            checked={checked}
             meals={meals}
             {...props}
           />
